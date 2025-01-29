@@ -1,0 +1,25 @@
+/* styles/main.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+#app {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#greeting {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}

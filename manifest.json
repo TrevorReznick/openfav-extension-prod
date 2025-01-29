@@ -1,0 +1,24 @@
+
+
+{
+    "manifest_version": 3,
+    "name": "Test Module",
+    "version": "0.1",
+    "description": "Una semplice estensione Chrome basata su modularizzazione con ES6 Modules, Tailwind CSS e Nanostore.",
+    "permissions": [
+        "activeTab"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "assets/icons/icon16.png",
+            "48": "assets/icons/icon48.png",
+            "128": "assets/icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png"
+    }
+}
