@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 400px;
+      padding: 16px;
+      font-family: Arial, sans-serif;
+    }
+    .environment-selector {
+      margin-bottom: 16px;
+    }
+    .resource-type-selector {
+      margin-bottom: 16px;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .save-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="environment-selector">
+    <h3>Ambiente</h3>
+    <select id="environmentSelect"></select>
+  </div>
+  <div class="resource-type-selector">
+    <h3>Tipo Risorsa</h3>
+    <select id="resourceTypeSelect"></select>
+  </div>
+  <button class="save-btn" id="saveButton">Salva Risorsa</button>
+  <script src="popup.js"></script>
+</body>
+</html>
