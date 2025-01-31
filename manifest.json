@@ -2,8 +2,8 @@
 
 {
     "manifest_version": 3,
-    "name": "Test Module",
-    "version": "0.1",
+    "name": "Openfav Prod",
+    "version": "0.2",
     "description": "Una semplice estensione Chrome basata su modularizzazione con ES6 Modules, Tailwind CSS e Nanostore.",
     "permissions": [
         "activeTab"
