@@ -1,6 +1,6 @@
 import { greet, getRandomColor } from './dom.js'
 import { logger, showState, debugCookies} from './utils/utils.js'
-import { checkAuth } from './auth/auth.js'
+import { checkAuth, getSessionInfo, goLoginPage} from './auth/auth.js'
 import * as cnf from './config/env.js'
 
 /* @@ config vars @@ */
@@ -50,10 +50,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             logger.info('User authenticated, fetching session info')
 
+            const sessionInfo = await getSessionInfo()
+                
+            if (!sessionInfo?.session?.user?.id) {
+
+                logger.error('Invalid session info structure:', sessionInfo)
+
+                throw new Error('Invalid session info structure')
+
+            }
+                
+            user_id = sessionInfo.session.user.id
+
+            logger.info(`Session initialized for user: ${user_id}`)
+
         } else {
 
-            logger.info('User not authenticated');
-            //showState('login')
+            logger.info('User not authenticated')
+
+            showState('login')
 
         }
 
@@ -63,5 +78,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         //showState('login')
     }
 
+
+})
+
+/* @@ listeners @@ */
+document.getElementById('loginButton')?.addEventListener('click', () => {
+
+    logger.log('Login button clicked')
+
+    goLoginPage(api_url_prod)
 
 })
