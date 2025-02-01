@@ -7,14 +7,35 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <div id="app" class="max-w-md mx-auto p-6 text-center">
-        <h1 class="text-2xl font-bold mb-4">Refactor Openfav Extension</h1>
-        <button id="greetButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Greet
-        </button>
-        <div id="greeting" class="mt-4 text-lg"></div>
+<div>
+    <div class="container">
+        <div id="header">
+          <img src="assets/images/logo.svg" alt="Openfav" class="logo">
+          <h1>OpenFavs</h1>
+        </div>
+        <!--
+        <div id="app" class="max-w-md mx-auto p-6 text-center">
+            <h1 class="text-2xl font-bold mb-4">Refactor Openfav Extension</h1>
+            <button id="greetButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Greet
+            </button>
+            <div id="greeting" class="mt-4 text-lg"></div>
+        </div>
+        -->
+        <div id="content">
+            <!-- debug purpose -->
+            <div id="saveState"></div>
+                <!-- Loading State -->
+                <div id="loadingState" class="state">
+                    <div class="loader"></div>
+                    <p>Processing website...</p>
+                </div>
+            </div>
+            <div id="successState"></div>
+            <div id="loginState"></div>    
+        </div>
     </div>
+    </body>
     <script type="module" src="modules/main.js"></script>
 </body>
 </html>
