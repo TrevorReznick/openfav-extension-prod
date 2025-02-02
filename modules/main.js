@@ -1,95 +1,87 @@
-import { greet, getRandomColor } from './dom.js'
-import { logger, showState, debugCookies, fetchTokens} from './utils/utils.js'
-import { checkAuth, getSessionInfo, getRedisUserId, goLoginPage} from './auth/auth.js'
-import * as cfg from './config/env.js'
+import { greet, getRandomColor } from "./dom.js";
+import { logger, showState, debugCookies, fetchTokens } from "./utils/utils.js";
+import {
+  checkAuth,
+  getSessionInfo,
+  getRedisUserId,
+  goLoginPage,
+} from "./auth/auth.js";
+import * as cfg from "./config/env.js";
 
 /* @@ config vars @@ */
 
-const api_url_prod = cfg.api_url_prod
-const api_url_dev = cfg.api_url_dev
-const _url = cfg.api_url_prod
-const sessionAuthUrl = _url + cfg.sessionAuthUrlEndpoint
-const YOUR_TOKEN = cfg.YOUR_TOKEN
-const API_URL = cfg.API_URL
+const api_url_prod = cfg.api_url_prod;
+const api_url_dev = cfg.api_url_dev;
+const _url = cfg.api_url_prod;
+const sessionAuthUrl = _url + cfg.sessionAuthUrlEndpoint;
+const YOUR_TOKEN = cfg.YOUR_TOKEN;
+const API_URL = cfg.API_URL;
 
 /* @@ global vars @@ */
 
-let user_id = null
-let id = null
-let token = null
+let user_id = null;
+let id = null;
+let token = null;
 
+document.addEventListener("DOMContentLoaded", async () => {
+  /* @@ init app @@ */
 
-document.addEventListener('DOMContentLoaded', async () => {
-
-    /* @@ init app @@ */
-
-    /*
+  /*
     showState('login')
     showState('loading')
     showState('success')
     showState('save')
     */
 
-    logger.info('Application starting...')    
-    showState('loading')
+  logger.info("Application starting...");
 
-    /* @@ debugging @@ */
+  showState("loading");
 
-    await debugCookies()
+  /* @@ debugging @@ */
 
-    logger.log('Debug URLs:', {
-        _url,
-        sessionAuthUrl,
-        api_url_prod
-    })
+  await debugCookies();
 
-    try {
+  logger.log("Debug URLs:", {
+    _url,
+    sessionAuthUrl,
+    api_url_prod,
+  });
 
-        logger.info('Checking authentication...')
-        const isAuthenticated = await checkAuth(_url)
-        //logger.info('is Authenticated' , isAuthenticated)
+  try {
+    logger.info("Checking authentication...");
+    const isAuthenticated = await checkAuth(_url);
+    //logger.info('is Authenticated' , isAuthenticated)
 
-        if (isAuthenticated) {
-            logger.info('User authenticated, fetching session info')
-            const sessionInfo = await getSessionInfo()                
-            if (!sessionInfo?.session?.user?.id) {
-                logger.error('Invalid session info structure:', sessionInfo)
-                throw new Error('Invalid session info structure')
-            }
-                
-            user_id = sessionInfo.session.user.id
-            logger.info(`Session initialized for user: ${user_id}`)
+    if (isAuthenticated) {
+      logger.info("User authenticated, fetching session info");
+      const sessionInfo = await getSessionInfo();
+      if (!sessionInfo?.session?.user?.id) {
+        logger.error("Invalid session info structure:", sessionInfo);
+        throw new Error("Invalid session info structure");
+      }
 
-        } else {
-
-            logger.info('User not authenticated')
-            showState('login')
-
-        }
-
-    } catch(error) {
-
-        logger.error('Initialization failed:', error)
-        //showState('login')
-
-    } finally {
-
-        token = await fetchTokens(_url)
-        user_id = await getRedisUserId(token)
-        logger.info(`Redis Authenticated user: ${user_id}`)
-        logger.info('Initializing global variables:', { user_id, id })
-        showState('save')
-
+      user_id = sessionInfo.session.user.id;
+      logger.info(`Session initialized for user: ${user_id}`);
+    } else {
+      logger.info("User not authenticated");
+      showState("login");
     }
-
-
-})
+  } catch (error) {
+    logger.error("Initialization failed:", error);
+    showState("login");
+  } finally {
+    showState("loading");
+    token = await fetchTokens(_url);
+    user_id = await getRedisUserId(token);
+    logger.info(`Redis Authenticated user: ${user_id}`);
+    logger.info("Initializing global variables:", { user_id, id });
+    showState("save");
+  }
+});
 
 /* @@ listeners @@ */
 
-document.getElementById('loginButton')?.addEventListener('click', () => {
-
-    logger.log('Login button clicked')
-    goLoginPage(api_url_prod)
-
-})
+document.getElementById("loginButton")?.addEventListener("click", () => {
+  logger.log("Login button clicked");
+  goLoginPage(api_url_prod);
+});

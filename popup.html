@@ -11,7 +11,7 @@
     <div class="container">
         <div id="header">
           <img src="assets/images/logo.svg" alt="Openfav" class="logo">
-          <h1>OpenFavs</h1>
+          <h1>Openfav</h1>
         </div>
         <!--
         <div id="app" class="max-w-md mx-auto p-6 text-center">
@@ -38,14 +38,48 @@
                 </button>
             </div>
             <!-- autenthicated state -->
-            <div id="saveState">
-                welcome!
+            <div id="saveState" class="state">
+                <div class="container">
+                    <div id="header">
+                        <h1>Environment Selector</h1>
+                    </div>
+                    <div class="environment-buttons">
+                        <div class="env-btn active" data-env="Production">
+                            <div class="env-icon">B</div>
+                            <div class="env-name">Production</div>
+                        </div>
+                        <div class="env-btn" data-env="Development">
+                            <div class="env-icon">C</div>
+                            <div class="env-name">Development</div>
+                        </div>
+                        <div class="env-btn" data-env="Personal">
+                            <div class="env-icon">U</div>
+                            <div class="env-name">Personal</div>
+                        </div>
+                        <div class="env-btn" data-env="Portfolio">
+                            <div class="env-icon">F</div>
+                            <div class="env-name">Portfolio</div>
+                        </div>
+                    </div>
+                    <div class="resource-list"></div>
+                    <div class="function-list"></div>
+                    <div class="rating-system">
+                        <div class="rating-star" data-rating="1">&#9733;</div>
+                        <div class="rating-star" data-rating="2">&#9733;</div>
+                        <div class="rating-star" data-rating="3">&#9733;</div>
+                        <div class="rating-star" data-rating="4">&#9733;</div>
+                        <div class="rating-star" data-rating="5">&#9733;</div>
+                    </div>
+                    <button class="save-button">Save</button>
+                </div>
             </div>
             <!-- success state -->
             <div id="successState"></div>   
         </div>
     </div>
     </body>
+    <script type="module" src="modules/dom.js"></script>
     <script type="module" src="modules/main.js"></script>
+    
 </body>
 </html>
