@@ -23,9 +23,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     /* @@ init app @@ */
 
-    logger.info('Application starting...')
-    
-    showState('loading')   
+    /*
+    showState('login')
+    showState('loading')
+    showState('success')
+    showState('save')
+    */
+
+    logger.info('Application starting...')    
+    showState('loading')
 
     /* @@ debugging @@ */
 
@@ -40,38 +46,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
 
         logger.info('Checking authentication...')
-
         const isAuthenticated = await checkAuth(_url)
-
         //logger.info('is Authenticated' , isAuthenticated)
 
         if (isAuthenticated) {
-
             logger.info('User authenticated, fetching session info')
-
-            const sessionInfo = await getSessionInfo()
-                
+            const sessionInfo = await getSessionInfo()                
             if (!sessionInfo?.session?.user?.id) {
-
                 logger.error('Invalid session info structure:', sessionInfo)
-
                 throw new Error('Invalid session info structure')
-
             }
                 
             user_id = sessionInfo.session.user.id
-
             logger.info(`Session initialized for user: ${user_id}`)
 
         } else {
 
             logger.info('User not authenticated')
-
             showState('login')
 
         }
 
-    } catch(e) {
+    } catch(error) {
 
         logger.error('Initialization failed:', error)
         //showState('login')
@@ -83,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         user_id = await getRedisUserId(token)
         logger.log(`Redis Authenticated user: ${user_id}`)
         logger.log('Initializing global variables:', { user_id, id })
+        showState('save')
 
     }
 
