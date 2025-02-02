@@ -1,4 +1,8 @@
 import { logger } from '../utils/utils.js'
+import * as cfg from './config/env.js'
+
+const NODE_REDIS_API_URL = cfg.NODE_REDIS_API_URL
+const REDIS_SESSION_API_URL = `${NODE_REDIS_API_URL}/tokens`
 
 export async function checkAuth(_url) {
 
@@ -50,16 +54,37 @@ export async function getSessionInfo(sessionAuthUrl) {
     }
 }
 
+export async function getRedisUserId(accessToken) {
+
+    try {
+        logger.log('redis url', `${REDIS_SESSION_API_URL}/access/${accessToken}`)
+        const response = await fetch(`${REDIS_SESSION_API_URL}/access/${accessToken}`, {  
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to get userId from access token');
+        }
+  
+        const data = await response.json()
+        return data.userId
+        
+    } catch (error) {
+  
+      logger.error('Failed to get userId from redis:', error)
+      return null
+    }
+  }
+
 export function goLoginPage(_url) {
 
     try {
         chrome.tabs.create({ url: _url + '/login' })
-
         window.close()
-
     } catch (error) {
-
         logger.error('Failed to redirect to login:', error)
-
     }
 }

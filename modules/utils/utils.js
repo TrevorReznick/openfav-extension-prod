@@ -1,7 +1,12 @@
-import * as cnf from '../config/env.js'
+import * as cfg from '../config/env.js'
+
+/* @@ init function @@ */
 
 const DEBUG = true
-const _url = cnf.api_url_prod
+const _url = cfg.api_url_prod
+
+let cookies = null
+let token = null
 
 const states = {
     login: document.getElementById('loginState'),
@@ -17,7 +22,7 @@ export const logger = {
     info: (...args) => console.info('[INFO]:', ...args)
 }
 
-
+/* @@ state management @@ */
   
   
 Object.entries(states).forEach(([name, element]) => {
@@ -44,14 +49,38 @@ export function showState(stateName) {
     logger.log(`${stateName} state shown`)
 }
 
-// Debug cookies function
+/* @@ cookies utils @@ */
+
+export function fetchTokens(url) {
+    return new Promise((resolve, reject) => {
+        chrome.cookies.getAll({ url }, (cookies) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError)
+            } else {
+                token = getToken(cookies)
+                resolve(token)
+            }
+        })
+    })
+}
+
+
+
+function getToken(cookies) {
+
+    if (!cookies || !Array.isArray(cookies)) {
+        console.error('Input non valido: cookies deve essere un array.');
+        return null;
+    }
+
+    const tokenCookie = cookies.find(cookie => cookie.name === 'sb-access-token')
+
+    return tokenCookie ? tokenCookie.value : null
+}
+
 export async function debugCookies() {
 
-    logger.log('Debugging cookies...')
-
-    
-
-    
+    logger.log('Debugging cookies...')    
     
     try {
         const allCookies = await chrome.cookies.getAll({ url: _url})
@@ -62,7 +91,7 @@ export async function debugCookies() {
             cookie.name.includes('sb-') ||
             cookie.name.includes('session') ||
             cookie.name.includes('auth')
-        );
+        )
         
         logger.log('Relevant auth cookies:', relevantCookies)
         

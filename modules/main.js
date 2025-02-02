@@ -1,23 +1,22 @@
 import { greet, getRandomColor } from './dom.js'
-import { logger, showState, debugCookies} from './utils/utils.js'
-import { checkAuth, getSessionInfo, goLoginPage} from './auth/auth.js'
-import * as cnf from './config/env.js'
+import { logger, showState, debugCookies, fetchTokens} from './utils/utils.js'
+import { checkAuth, getSessionInfo, getRedisUserId, goLoginPage} from './auth/auth.js'
+import * as cfg from './config/env.js'
 
 /* @@ config vars @@ */
 
-const api_url_prod = cnf.api_url_prod
-const api_url_dev = cnf.api_url_dev
-const _url = cnf.api_url_prod
-const sessionAuthUrl = _url + cnf.sessionAuthUrlEndpoint
-const YOUR_TOKEN = cnf.YOUR_TOKEN
-const API_URL = cnf.API_URL
-const NODE_REDIS_API_URL = cnf.NODE_REDIS_API_URL
-const REDIS_SESSION_API_URL = `${NODE_REDIS_API_URL}/tokens`
+const api_url_prod = cfg.api_url_prod
+const api_url_dev = cfg.api_url_dev
+const _url = cfg.api_url_prod
+const sessionAuthUrl = _url + cfg.sessionAuthUrlEndpoint
+const YOUR_TOKEN = cfg.YOUR_TOKEN
+const API_URL = cfg.API_URL
 
 /* @@ global vars @@ */
 
 let user_id = null
 let id = null
+let token = null
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -76,16 +75,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         logger.error('Initialization failed:', error)
         //showState('login')
+
+    } finally {
+
+        logger.log('finally condition!')
+        token = await fetchTokens(_url)
+        user_id = await getRedisUserId(token)
+        logger.log(`Redis Authenticated user: ${user_id}`)
+        logger.log('Initializing global variables:', { user_id, id })
+
     }
 
 
 })
 
 /* @@ listeners @@ */
+
 document.getElementById('loginButton')?.addEventListener('click', () => {
 
     logger.log('Login button clicked')
-
     goLoginPage(api_url_prod)
 
 })
