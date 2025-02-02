@@ -74,11 +74,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } finally {
 
-        logger.log('finally condition!')
         token = await fetchTokens(_url)
         user_id = await getRedisUserId(token)
-        logger.log(`Redis Authenticated user: ${user_id}`)
-        logger.log('Initializing global variables:', { user_id, id })
+        logger.info(`Redis Authenticated user: ${user_id}`)
+        logger.info('Initializing global variables:', { user_id, id })
         showState('save')
 
     }

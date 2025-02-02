@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: white;
+            /* Ensure the iframe has a white background */
+        }
+    </style>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Environment Selector</title>
+        <style>
+            :root {
+                --primary-color: #4f46e5;
+                --primary-hover: #4338ca;
+                --text-color: #1f2937;
+                --bg-color: #ffffff;
+                --border-color: #e5e7eb;
+                --success-color: #10b981;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                width: 360px;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                color: var(--text-color);
+                background: var(--bg-color);
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            #header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                width: 32px;
+                height: 32px;
+                background: var(--primary-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            .environment-buttons {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .env-btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px;
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                background: white;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .env-btn:hover {
+                border-color: var(--primary-color);
+            }
+
+            .env-btn.active {
+                background: #f0f7ff;
+                border-color: var(--primary-color);
+            }
+
+            .function-list {
+                margin-top: 16px;
+            }
+
+            .function-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px;
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                transition: all 0.2s;
+            }
+
+            .function-item:hover {
+                background: #f9fafb;
+            }
+
+            .function-checkbox {
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 2px solid var(--primary-color);
+                border-radius: 4px;
+                position: relative;
+                cursor: pointer;
+                outline: none;
+                transition: all 0.2s;
+                margin-left: auto;
+                margin-right: 0.5rem;
+            }
+
+            .function-checkbox:checked {
+                background: var(--primary-color);
+            }
+
+            .function-checkbox:checked::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 8px;
+                height: 8px;
+                background: white;
+                border-radius: 50%;
+            }
+
+            .function-icon {
+                width: 24px;
+                height: 24px;
+                background: var(--primary-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 16px;
+            }
+
+            .function-name {
+                font-size: 14px;
+                font-weight: 500;
+                flex: 1;
+            }
+
+            .rating-system {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 24px;
+            }
+
+            .rating-star {
+                width: 24px;
+                height: 24px;
+                background: #e5e7eb;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .rating-star.active,
+            .rating-star:hover {
+                background: var(--primary-color);
+            }
+
+            .save-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 16px;
+                margin-top: 24px;
+                border: none;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 500;
+                background: var(--primary-color);
+                color: white;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .save-button:hover {
+                background: var(--primary-hover);
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div id="header">
+                <div class="logo">E</div>
+                <h1>Environment Selector</h1>
+            </div>
+            <div class="environment-buttons">
+                <div class="env-btn active" data-env="Production">
+                    <div class="env-icon">B</div>
+                    <div class="env-name">Production</div>
+                </div>
+                <div class="env-btn" data-env="Development">
+                    <div class="env-icon">C</div>
+                    <div class="env-name">Development</div>
+                </div>
+                <div class="env-btn" data-env="Personal">
+                    <div class="env-icon">U</div>
+                    <div class="env-name">Personal</div>
+                </div>
+                <div class="env-btn" data-env="Portfolio">
+                    <div class="env-icon">F</div>
+                    <div class="env-name">Portfolio</div>
+                </div>
+            </div>
+            <div class="function-list"></div>
+            <div class="rating-system">
+                <div class="rating-star" data-rating="1">&#9733;</div>
+                <div class="rating-star" data-rating="2">&#9733;</div>
+                <div class="rating-star" data-rating="3">&#9733;</div>
+                <div class="rating-star" data-rating="4">&#9733;</div>
+                <div class="rating-star" data-rating="5">&#9733;</div>
+            </div>
+            <button class="save-button">Save</button>
+        </div>
+
+        <script>
+            const applicationObj = {
+                "name": "Environment Selector",
+                "environments": [
+                    {
+                        "name": "Production",
+                        "icon": "Briefcase",
+                        "functionsTypes": [
+                            { "function_id": 1, "name": "service", "description": "Servizi web" },
+                            { "function_id": 2, "name": "tool", "description": "Strumenti" },
+                            { "function_id": 3, "name": "api", "description": "Interfacce di programmazione" },
+                            { "function_id": 4, "name": "provider", "description": "Fornitori di servizi" }
+                        ]
+                    },
+                    {
+                        "name": "Development",
+                        "icon": "Code2",
+                        "functionsTypes": [
+                            { "function_id": 1, "name": "service", "description": "Servizi web" },
+                            { "function_id": 2, "name": "tool", "description": "Strumenti" },
+                            { "function_id": 3, "name": "api", "description": "Interfacce di programmazione" },
+                            { "function_id": 4, "name": "provider", "description": "Fornitori di servizi" }
+                        ]
+                    },
+                    {
+                        "name": "Personal",
+                        "icon": "User",
+                        "functionsTypes": [
+                            { "function_id": 7, "name": "favorite", "label": "Favoriti" },
+                            { "function_id": 8, "name": "todo", "label": "Todo" },
+                            { "function_id": 9, "name": "readlater", "label": "Read Later" },
+                            { "function_id": 10, "name": "generic", "label": "Generic" }
+                        ]
+                    },
+                    {
+                        "name": "Portfolio",
+                        "icon": "FolderKanban",
+                        "functionsTypes": []
+                    }
+                ]
+            };
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const envButtons = document.querySelectorAll(".env-btn");
+                const functionList = document.querySelector(".function-list");
+
+                // Function to update the function list based on selected environment
+                function updateFunctionList(envName) {
+                    functionList.innerHTML = ""; // Clear previous functions
+                    const selectedEnv = applicationObj.environments.find(env => env.name === envName);
+
+                    if (selectedEnv && selectedEnv.functionsTypes.length > 0) {
+                        selectedEnv.functionsTypes.forEach(func => {
+                            const functionItem = document.createElement("div");
+                            functionItem.className = "function-item";
+
+                            const functionIcon = document.createElement("div");
+                            functionIcon.className = "function-icon";
+                            functionIcon.textContent = func.name.charAt(0).toUpperCase();
+
+                            const functionName = document.createElement("div");
+                            functionName.className = "function-name";
+                            functionName.textContent = func.label || func.name;
+
+                            const functionCheckbox = document.createElement("input");
+                            functionCheckbox.type = "checkbox";
+                            functionCheckbox.className = "function-checkbox";
+
+                            functionItem.appendChild(functionIcon);
+                            functionItem.appendChild(functionName);
+                            functionItem.appendChild(functionCheckbox); // Append checkbox last for alignment
+                            functionList.appendChild(functionItem);
+                        });
+                    } else {
+                        functionList.innerHTML = "<p>No functions available for this environment.</p>";
+                    }
+                }
+
+                // Set up initial environment and functions
+                let currentEnv = "Production";
+                const activeButton = document.querySelector(`.env-btn[data-env="${currentEnv}"]`);
+                activeButton.classList.add("active");
+                updateFunctionList(currentEnv);
+
+                // Handle environment button clicks
+                envButtons.forEach(button => {
+                    button.addEventListener("click", () => {
+                        const envName = button.getAttribute("data-env");
+                        if (envName !== currentEnv) {
+                            document.querySelector(".env-btn.active").classList.remove("active");
+                            button.classList.add("active");
+                            currentEnv = envName;
+                            updateFunctionList(envName);
+                        }
+                    });
+                });
+
+                // Rating system logic
+                const ratingStars = document.querySelectorAll('.rating-star');
+                let selectedRating = null;
+
+                ratingStars.forEach(star => {
+                    star.addEventListener('click', () => {
+                        const rating = parseInt(star.dataset.rating);
+                        selectedRating = rating;
+                        updateRatingStars();
+                    });
+
+                    star.addEventListener('mouseover', () => {
+                        const rating = parseInt(star.dataset.rating);
+                        highlightStars(rating);
+                    });
+
+                    star.addEventListener('mouseout', () => {
+                        if (selectedRating !== null) {
+                            updateRatingStars();
+                        } else {
+                            unhighlightStars();
+                        }
+                    });
+                });
+
+                function highlightStars(rating) {
+                    ratingStars.forEach((star, index) => {
+                        if (index < rating) {
+                            star.classList.add('active');
+                        } else {
+                            star.classList.remove('active');
+                        }
+                    });
+                }
+
+                function unhighlightStars() {
+                    ratingStars.forEach(star => {
+                        star.classList.remove('active');
+                    });
+                }
+
+                function updateRatingStars() {
+                    ratingStars.forEach((star, index) => {
+                        if (index < selectedRating) {
+                            star.classList.add('active');
+                        } else {
+                            star.classList.remove('active');
+                        }
+                    });
+                }
+
+                // Save button functionality
+                const saveButton = document.querySelector('.save-button');
+                saveButton.addEventListener('click', () => {
+                    alert('Settings saved!');
+                });
+            });
+        </script>
+
+    </body>
+
+    </html>
+
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>
