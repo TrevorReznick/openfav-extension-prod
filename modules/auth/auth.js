@@ -1,5 +1,5 @@
 import { logger } from '../utils/utils.js'
-import * as cfg from './config/env.js'
+import * as cfg from '../config/env.js'
 
 const NODE_REDIS_API_URL = cfg.NODE_REDIS_API_URL
 const REDIS_SESSION_API_URL = `${NODE_REDIS_API_URL}/tokens`
@@ -71,7 +71,7 @@ export async function getRedisUserId(accessToken) {
   
         const data = await response.json()
         return data.userId
-        
+
     } catch (error) {
   
       logger.error('Failed to get userId from redis:', error)
