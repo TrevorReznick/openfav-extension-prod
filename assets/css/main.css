@@ -167,6 +167,34 @@ h1 {
   background: var(--primary-color);
 }
 
+.resource-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.resource-name {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
 .url-preview {
   display: flex;
   align-items: center;

@@ -1,4 +1,3 @@
-import { greet, getRandomColor } from "./dom.js";
 import { logger, showState, debugCookies, fetchTokens } from "./utils/utils.js";
 import {
   checkAuth,
