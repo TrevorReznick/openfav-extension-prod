@@ -1,8 +1,7 @@
 import { applicationObj } from "./config/applicationObj.js";
 import { logger } from "./utils/utils.js";
 
-function updateResourceTypesList(envName) {
-
+export function updateResourceTypesList(envName) {
   const resourceList = document.querySelector(".resource-list");
   resourceList.innerHTML = ""; // Clear previous resources
   logger.info("environment resources", envName);
@@ -12,8 +11,6 @@ function updateResourceTypesList(envName) {
   );
 
   if (selectedEnv && selectedEnv.resourceTypes.length > 0) {
-    logger.log('Resources exists!')
-    logger.log('Resource types', selectedEnv.resourceTypes)
     selectedEnv.resourceTypes.forEach((resource) => {
       const resourceItem = document.createElement("div");
       resourceItem.className = "resource-item";
@@ -42,7 +39,6 @@ function updateResourceTypesList(envName) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const envButtons = document.querySelectorAll(".env-btn");
   const functionList = document.querySelector(".function-list");
 

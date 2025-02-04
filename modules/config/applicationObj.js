@@ -124,22 +124,22 @@ export const applicationObj = {
         {
           resource_id: 7,
           name: "favorite",
-          label: "Favoriti",
+          description: "Favoriti",
         },
         {
           resource_id: 8,
           name: "todo",
-          label: "Todo",
+          description: "Todo",
         },
         {
           resource_id: 9,
           name: "readlater",
-          label: "Read Later",
+          description: "Read Later",
         },
         {
           resource_id: 10,
           name: "generic",
-          label: "Generic",
+          description: "Generic",
         },
       ],
     },

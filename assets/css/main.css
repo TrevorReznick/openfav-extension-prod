@@ -167,6 +167,36 @@ h1 {
   background: var(--primary-color);
 }
 
+.resource-checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.resource-checkbox:checked {
+  background: var(--primary-color);
+}
+
+.resource-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
+
 .resource-icon {
   width: 24px;
   height: 24px;
