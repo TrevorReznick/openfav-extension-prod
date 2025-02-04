@@ -33,7 +33,7 @@ Object.entries(states).forEach(([name, element]) => {
   
 export function showState(stateName) {
   
-    logger.log(`Changing state to: ${stateName}`)
+    //logger.log(`Changing state to: ${stateName}`)
     
     if (!states[stateName]) {
         logger.error(`Invalid state name: ${stateName}`)
@@ -42,7 +42,7 @@ export function showState(stateName) {
     
     Object.entries(states).forEach(([name, state]) => {
         state.classList.add('hidden')
-        logger.log(`${name} state hidden`)
+        //logger.log(`${name} state hidden`)
     })
     
     states[stateName].classList.remove('hidden')

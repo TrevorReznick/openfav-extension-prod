@@ -219,6 +219,10 @@ h1 {
   transition: all 0.2s;
 }
 
+.resource-list {
+  padding-top: 1rem;
+}
+
 .resource-name {
   font-size: 14px;
   font-weight: 500;
