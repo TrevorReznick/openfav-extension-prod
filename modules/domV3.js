@@ -1,23 +1,29 @@
-//import { applicationObj } from "./config/applicationObj.js"
+import { applicationObj } from "./config/applicationObj.js"
 import { logger} from "./utils/utils.js"
 import { updateResourceTypesList } from "./utils/domUtils.js"
 import {envButtons, functionList, resourceList} from './config/constants.js'
 
-let defaultEnv = "Personal"
+let currentEnv = "Personal"
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
   /* @@ init env @@ */
 
-  //logger.log('enviroment start -> ', 'currentEnv -> ', currentEnv)  
+  //logger.log('enviroment start -> ', 'currentEnv -> ', currentEnv)   
 
-  if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')
-  
-  updateResourceTypesList(defaultEnv, 'resourceTypes')
+  if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')  
+
+  let envName = currentEnv
+
+  const selectedEnv = applicationObj.environments.find(
+    (env) => env.name === envName
+  )
 
   //console.log('checking obj conf -> ', selectedEnv)
   
-  /* if (selectedEnv && selectedEnv.resourceTypes.length > 0) {
+  if (selectedEnv && selectedEnv.resourceTypes.length > 0) {
 
     logger.log('Resources exists!')
 
@@ -49,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resourceList.innerHTML = `<p>No resources available for this environment.</p>`
 
   }
-  */
 
   envButtons.forEach((button) => {
     button.addEventListener("click", () => {
