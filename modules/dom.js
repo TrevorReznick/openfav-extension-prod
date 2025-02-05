@@ -1,19 +1,21 @@
-import { applicationObj } from "./config/applicationObj.js";
+import { applicationObj } from "./config/applicationObj.js"
 import { logger} from "./utils/utils.js"
+import { updateResourceTypesList } from "./utils/domUtils.js"
+import {envButtons, functionList, resourceList} from './config/constants.js'
 
 let currentEnv = "Personal"
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
   /* @@ init env @@ */
 
-  //logger.log('enviroment start -> ', 'currentEnv -> ', currentEnv)
+  //logger.log('enviroment start -> ', 'currentEnv -> ', currentEnv) 
   
-  const envButtons = document.querySelectorAll(".env-btn")
-  const functionList = document.querySelector(".function-list")
-  const resourceList = document.querySelector(".resource-list")
 
   if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')
+  
 
   let envName = currentEnv
 
@@ -65,7 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
         currentEnv = envName
         console.log('env select button ', currentEnv)
         //updateFunctionList(envName)
-        //updateResourceTypesList(envName)
+        logger.log('launcing updateResourcesList')
+        updateResourceTypesList(envName)
       }
     })
   })
