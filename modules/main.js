@@ -1,12 +1,13 @@
-import { logger, showState, debugCookies, fetchTokens } from "./utils/utils.js"
+import { logger, showState, debugCookies, fetchTokens } from './utils/utils.js'
+import {saveButton} from './config/constants.js'
 
 import {
   checkAuth,
   getSessionInfo,
   getRedisUserId,
   goLoginPage,
-} from "./auth/auth.js";
-import * as cfg from "./config/env.js"
+} from './auth/auth.js';
+import * as cfg from './config/env.js'
 
 
 
@@ -25,57 +26,67 @@ let user_id = null
 let id = null
 let token = null
 
-document.addEventListener("DOMContentLoaded", async () => {
+saveButton.addEventListener('click', () => {
+  alert('Settings saved!')
+})
+
+document.addEventListener('DOMContentLoaded', async () => {
 
   /* @@ init app @@ */ 
 
-  logger.warn("Application starting ...")
+  logger.info('Application starting ...')
 
-  showState("loading")
+  showState('loading')
 
   /* @@ debugging @@ */
 
   await debugCookies()
 
-  //logger.log("Debug URLs:", {_url, sessionAuthUrl, api_url_prod})
+  //logger.log('Debug URLs:', {_url, sessionAuthUrl, api_url_prod})
 
   try {
-    logger.info("Checking authentication...")
+    logger.info('Checking authentication...')
+
     const isAuthenticated = await checkAuth(_url)
     //logger.info('is Authenticated' , isAuthenticated)
 
     if (isAuthenticated) {
-      logger.info("User authenticated, fetching session info")
+      logger.info('User authenticated, fetching session info')
       const sessionInfo = await getSessionInfo()
       if (!sessionInfo?.session?.user?.id) {
-        logger.error("Invalid session info structure:", sessionInfo);
-        throw new Error("Invalid session info structure");
+        logger.error('Invalid session info structure:', sessionInfo)
+        throw new Error('Invalid session info structure')
       }
-
-      user_id = sessionInfo.session.user.id;
-      logger.info(`Session initialized for user: ${user_id}`);
+      user_id = sessionInfo.session.user.id
+      logger.info(`Session initialized for user: ${user_id}`)
     } else {
-      logger.info("User not authenticated")
-      showState("login")
+      logger.info('User not authenticated')
+      showState('login')
     }
   } catch (error) {
 
-    logger.warn("Initialization failed:", error)
-    showState("login")
+    logger.warn('Initialization failed:', error)
+    showState('login')
 
   } finally {
-    showState("loading")
+    showState('loading')
     token = await fetchTokens(_url)
     user_id = await getRedisUserId(token)
-    logger.info(`Redis Authenticated user: ${user_id}`)
-    logger.info("Initializing global variables:", { user_id, id })
-    showState("save")
+    if(!user_id) {
+      logger.error('redis user null')
+      showState('login')
+    } else {
+      logger.info(`Redis Authenticated user: ${user_id}`)
+      logger.info('Initializing global variables:', { user_id, id })      
+      showState('save')
+    }
+    
   }
 })
 
 /* @@ listeners @@ */
 
-document.getElementById("loginButton")?.addEventListener("click", () => {
-  logger.log("Login button clicked")
+document.getElementById('loginButton')?.addEventListener('click', () => {
+  logger.log('Login button clicked')
   goLoginPage(api_url_prod)
 })
