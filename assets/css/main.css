@@ -97,7 +97,7 @@ h1 {
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--success-color);
   border-radius: 4px;
   position: relative;
   cursor: pointer;
@@ -108,7 +108,7 @@ h1 {
 }
 
 .function-checkbox:checked {
-  background: var(--primary-color);
+  background: var(--success-color);
 }
 
 .function-checkbox:checked::after {

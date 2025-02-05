@@ -1,7 +1,8 @@
-import { logger} from "./utils.js"
-import { applicationObj } from "../config/applicationObj.js"
-import {envButtons, functionList, resourceList} from '../config/constants.js'
+import { logger} from './utils.js'
+import { applicationObj } from '../config/applicationObj.js'
+import {envButtons, functionList, resourceList, ratingStars} from '../config/constants.js'
 
+/* @@ function resources obj selector @@ */
 
 function getEnvResourcesFunctions(envName, type) {
     const getEnv = applicationObj.environments.find(
@@ -10,6 +11,8 @@ function getEnvResourcesFunctions(envName, type) {
     logger.log('selectd params', envName, type)
     return getEnv[type]
 }
+
+/* @@ function list builder @@ */
 
 export function updateFunctionList(envName, type) {
 
@@ -47,6 +50,8 @@ export function updateFunctionList(envName, type) {
   } 
 }
 
+/* @@ resource list builder @@ */
+
 export function updateResourceTypesList(envName, type) {
 
   if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')   
@@ -83,5 +88,31 @@ export function updateResourceTypesList(envName, type) {
    } else {
     resourceList.innerHTML = '<p>No resources available for this environment.</p>';
   }
+}
+
+export function highlightStars(rating) {
+  ratingStars.forEach((star, index) => {
+    if (index < rating) {
+      star.classList.add('active')
+    } else {
+      star.classList.remove('active')
+    }
+  })
+}
+
+export function unhighlightStars() {
+  ratingStars.forEach((star) => {
+    star.classList.remove('active')
+  });
+}
+
+export function updateRatingStars() {
+  ratingStars.forEach((star, index) => {
+    if (index < selectedRating) {
+      star.classList.add('active')
+    } else {
+      star.classList.remove('active')
+    }
+  })
 }
 
