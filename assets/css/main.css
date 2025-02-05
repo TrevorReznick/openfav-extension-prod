@@ -337,7 +337,7 @@ label {
   align-items: center;
   justify-content: center;
   padding: 10px 16px;
-  margin-top: 24px;
+  margin: 24px auto 0; /* Centra orizzontalmente usando 'auto' sui margini laterali */
   border: none;
   border-radius: 6px;
   font-size: 14px;
@@ -346,6 +346,7 @@ label {
   color: white;
   cursor: pointer;
   transition: all 0.2s;
+  width: fit-content; /* Imposta la larghezza solo quanto necessario */
 }
 
 .save-button:hover {

@@ -1,16 +1,16 @@
-//import { applicationObj } from './config/applicationObj.js"
-import { logger} from "./utils/utils.js"
-import { updateResourceTypesList, updateFunctionList, highlightStars, unhighlightStars, updateRatingStars } from "./utils/domUtils.js"
-import {envButtons, functionList, resourceList, ratingStars} from './config/constants.js'
+//import { applicationObj } from './config/applicationObj.js'
+import { logger} from './utils/utils.js'
+import { updateResourceTypesList, updateFunctionList, highlightStars, unhighlightStars, updateRatingStars } from './utils/domUtils.js'
+import {envButtons, functionList, resourceList, ratingStars, saveButton} from './config/constants.js'
 
-let currentEnv = "Personal"
+let currentEnv = 'Personal'
 let selectedRating = null
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* @@ init env @@ */
 
-  //logger.log('enviroment start -> ', 'currentEnv -> ', currentEnv)  
+  //logger.log('enviroment start', currentEnv)  
 
   if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')
   
@@ -54,5 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+})
+
+saveButton.addEventListener('click', () => {
+  alert('Settings saved!')
 })
 
