@@ -7,6 +7,7 @@ function getEnvResourcesFunctions(envName, type) {
     const getEnv = applicationObj.environments.find(
         (env) => env.name === envName
     )
+    logger.log('selectd params', envName, type)
     return getEnv[type]
 }
 

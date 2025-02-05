@@ -3,7 +3,7 @@ import { logger} from "./utils/utils.js"
 import { updateResourceTypesList } from "./utils/domUtils.js"
 import {envButtons, functionList, resourceList} from './config/constants.js'
 
-let defaultEnv = "Personal"
+let currentEnv = "Personal"
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if(!envButtons && !functionList && !resourceList) logger.error('errore dom!')
   
-  updateResourceTypesList(defaultEnv, 'resourceTypes')
+  updateResourceTypesList(currentEnv, 'resourceTypes')
 
   //console.log('checking obj conf -> ', selectedEnv)
   
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('env select button ', currentEnv)
         //updateFunctionList(envName)
         logger.log('launcing updateResourcesList')
-        updateResourceTypesList(envName)
+        updateResourceTypesList(envName, 'resourceTypes')
       }
     })
   })
