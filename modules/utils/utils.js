@@ -101,3 +101,50 @@ export async function debugCookies() {
         return []
     }
 }
+
+/* @@ main object utils @@ */
+
+export function mapProperties(target, source, propertyMap = {}) {
+    for (const [targetKey, sourceKey] of Object.entries(propertyMap)) {
+        if (source.hasOwnProperty(sourceKey)) {
+            // Gestione di trasformazioni specifiche
+            if (typeof targetKey === 'function') {
+                target[targetKey] = targetKey(source[sourceKey]);
+            } else {
+                target[targetKey] = source[sourceKey];
+            }
+        }
+    }
+  
+    // Copia automatica delle proprietà con lo stesso nome
+    for (const key in source) {
+        if (!propertyMap || !(key in propertyMap) && source.hasOwnProperty(key)) {
+            target[key] = source[key];
+        }
+    }
+}
+
+export function compareKeys(siteObj, objectMap) {
+    const siteObjKeys = Object.keys(siteObj); // Ottieni tutte le chiavi di siteObj
+    const objectMapKeys = Object.keys(objectMap); // Ottieni tutte le chiavi di objectMap
+  
+    let missingKeys = []; // Array per memorizzare le chiavi mancanti
+  
+    // Controlla ogni chiave di siteObj
+    for (const key of siteObjKeys) {
+      if (!objectMap.hasOwnProperty(key)) {
+        missingKeys.push(key); // Aggiungi la chiave mancante all'array
+      }
+    }
+  
+    // Restituisci i risultati
+    if (missingKeys.length === 0) {
+      console.log("Tutte le chiavi di siteObj sono presenti in objectMap.");
+      return true;
+    } else {
+      console.warn(
+        `Le seguenti chiavi di siteObj non sono presenti in objectMap: ${missingKeys.join(", ")}.`
+      );
+      return false;
+    }
+}

@@ -1,12 +1,16 @@
-import { logger, showState, debugCookies, fetchTokens } from './utils/utils.js'
-import {saveButton} from './config/constants.js'
+import { logger, showState, debugCookies, fetchTokens, compareKeys, mapProperties } from './utils/utils.js'
+import {loginButton, saveButton} from './config/constants.js'
+import {siteClassifyAI} from './api/api.js'
+import { siteObj, propertyMap} from './config/siteObj.js'
+
 
 import {
   checkAuth,
   getSessionInfo,
   getRedisUserId,
   goLoginPage,
-} from './auth/auth.js';
+} from './auth/auth.js'
+
 import * as cfg from './config/env.js'
 
 
@@ -25,9 +29,45 @@ const API_URL = cfg.API_URL
 let user_id = null
 let id = null
 let token = null
+let process_auth = false
+let myObj = {}; // Oggetto di destinazione
+let aiResponse = null
 
 saveButton.addEventListener('click', () => {
-  alert('Settings saved!')
+
+  showState('loading')
+
+  if(process_auth) {
+
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+
+      const activeTab = tabs[0]
+      const url = activeTab.url
+      logger.info('url', url)
+
+      aiResponse = await siteClassifyAI(url)     
+
+      myObj.url = url
+      myObj.user_id = user_id
+
+      mapProperties(myObj, aiResponse, propertyMap)
+
+      //logger.info('object', myObj)
+
+      const result = compareKeys(siteObj, propertyMap)
+      logger.warn("Confronto completato:", result)
+
+      showState('success')
+      alert('Settings saved!')
+
+    })
+
+  } else {
+
+    alert('you need to authenticate')
+
+  }
+  
 })
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -77,7 +117,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       showState('login')
     } else {
       logger.info(`Redis Authenticated user: ${user_id}`)
-      logger.info('Initializing global variables:', { user_id, id })      
+      logger.info('Initializing global variables:', { user_id, id })
+      process_auth = true
       showState('save')
     }
     
@@ -86,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 /* @@ listeners @@ */
 
-document.getElementById('loginButton')?.addEventListener('click', () => {
+loginButton?.addEventListener('click', () => {
   logger.log('Login button clicked')
   goLoginPage(api_url_prod)
 })
