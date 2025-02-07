@@ -132,19 +132,19 @@ export function compareKeys(siteObj, objectMap) {
   
     // Controlla ogni chiave di siteObj
     for (const key of siteObjKeys) {
-      if (!objectMap.hasOwnProperty(key)) {
-        missingKeys.push(key); // Aggiungi la chiave mancante all'array
-      }
+        if (!objectMap.hasOwnProperty(key)) {
+            missingKeys.push(key); // Aggiungi la chiave mancante all'array
+        }
     }
   
     // Restituisci i risultati
     if (missingKeys.length === 0) {
-      console.log("Tutte le chiavi di siteObj sono presenti in objectMap.");
-      return true;
+        console.log("Tutte le chiavi di siteObj sono presenti in objectMap.");
+        return true
     } else {
-      console.warn(
-        `Le seguenti chiavi di siteObj non sono presenti in objectMap: ${missingKeys.join(", ")}.`
-      );
-      return false;
+        console.warn(
+            `Le seguenti chiavi di siteObj non sono presenti in objectMap: ${missingKeys.join(", ")}.`
+        )
+        return false
     }
 }

@@ -1,7 +1,8 @@
 import { logger, showState, debugCookies, fetchTokens, compareKeys, mapProperties } from './utils/utils.js'
 import {loginButton, saveButton} from './config/constants.js'
 import {siteClassifyAI} from './api/api.js'
-import { siteObj, propertyMap} from './config/siteObj.js'
+import { siteObj, propertyMap, keyMappings} from './config/siteObj.js'
+import {mapKeys} from './utils/siteUtils.js'
 
 
 import {
@@ -45,20 +46,22 @@ saveButton.addEventListener('click', () => {
       const url = activeTab.url
       logger.info('url', url)
 
-      aiResponse = await siteClassifyAI(url)     
+      aiResponse = await siteClassifyAI(url)
 
-      myObj.url = url
-      myObj.user_id = user_id
+      //logger.log(aiResponse)      
 
-      mapProperties(myObj, aiResponse, propertyMap)
+      mapKeys(siteObj, aiResponse, keyMappings, user_id, url)
 
-      //logger.info('object', myObj)
-
+      /*
+      mapProperties(siteObj, aiResponse, propertyMap)
       const result = compareKeys(siteObj, propertyMap)
       logger.warn("Confronto completato:", result)
+      */
+
+      logger.info('object', siteObj)
 
       showState('success')
-      alert('Settings saved!')
+      //alert('Settings saved!')
 
     })
 
